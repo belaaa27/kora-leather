@@ -1,3 +1,7 @@
+import { products, categories } from "./data/products";
+
+console.log("Products count:", products.length);
+console.log("Categories count:", categories.length);
 export default function App() {
   return (
     <main className="min-h-screen bg-ivory px-6 py-20 text-brand-text">
