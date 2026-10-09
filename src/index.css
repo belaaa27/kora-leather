@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors */
+  --color-espresso: #35251f;
+  --color-cognac: #a66a43;
+  --color-ivory: #f8f4ed;
+  --color-brand-text: #29211d;
+
+  /* Typography */
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+/* Base application styles */
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-brand-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
