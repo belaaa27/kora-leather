@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
+import { products, categories } from "./data/products";
 
 function HomePage() {
   const categories = [
@@ -136,15 +138,139 @@ function HomePage() {
   );
 }
 
-function ShopPage() {
+function ProductCard({ product }) {
+  const [imageError, setImageError] = useState(false);
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-      <h1 className="font-serif text-3xl font-bold text-espresso mb-2">
-        Shop Collection
-      </h1>
-      <p className="text-brand-text/80">
-        Discover our full range of luxury leather items.
-      </p>
+    <div className="flex flex-col bg-ivory rounded-sm overflow-hidden border border-espresso/10 shadow-xs hover:shadow-md transition-shadow">
+      {/* Product Image / Fallback Container */}
+      <div className="relative aspect-4/5 w-full bg-espresso/5 overflow-hidden flex items-center justify-center">
+        {imageError ? (
+          <div className="flex flex-col items-center justify-center p-6 text-center text-espresso/60 h-full w-full bg-espresso/5 select-none">
+            <svg
+              className="w-10 h-10 mb-2 stroke-cognac"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"
+              />
+            </svg>
+            <span className="text-xs font-serif font-medium text-espresso/80">
+              {product.name}
+            </span>
+            <span className="text-[10px] tracking-wider uppercase text-cognac mt-1">
+              Image unavailable
+            </span>
+          </div>
+        ) : (
+          <img
+            src={product.image}
+            alt={product.name}
+            onError={() => setImageError(true)}
+            className="w-full h-full object-cover object-center transform hover:scale-103 transition-transform duration-500"
+          />
+        )}
+      </div>
+
+      {/* Card Content */}
+      <div className="p-5 flex flex-col flex-1 justify-between">
+        <div>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-cognac">
+            {product.category}
+          </span>
+          <h3 className="font-serif text-lg font-bold text-espresso mt-1 mb-1.5 leading-snug">
+            {product.name}
+          </h3>
+          <p className="text-xs sm:text-sm text-brand-text/75 line-clamp-2 leading-relaxed">
+            {product.shortDescription}
+          </p>
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-espresso/10 flex items-center justify-between">
+          <span className="font-sans font-bold text-base text-espresso">
+            {product.price.toLocaleString()} ETB
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ShopPage() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const filteredProducts =
+    selectedCategory === "all"
+      ? products
+      : products.filter((product) => product.category === selectedCategory);
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto mb-10">
+        <span className="text-xs sm:text-sm font-semibold tracking-widest text-cognac uppercase">
+          CURATED COLLECTION
+        </span>
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-espresso mt-2 mb-4">
+          Shop Our Leatherwork
+        </h1>
+        <p className="text-brand-text/80 text-sm sm:text-base leading-relaxed">
+          Thoughtfully crafted essentials made with timeless Ethiopian craftsmanship and durable full-grain leather.
+        </p>
+      </div>
+
+      {/* Category Filter Pills */}
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
+        <button
+          type="button"
+          onClick={() => setSelectedCategory("all")}
+          className={`px-5 py-2 rounded-xs text-xs sm:text-sm font-medium transition-all ${
+            selectedCategory === "all"
+              ? "bg-espresso text-ivory shadow-xs"
+              : "bg-ivory text-brand-text border border-espresso/20 hover:border-cognac hover:text-cognac"
+          }`}
+        >
+          All ({products.length})
+        </button>
+        {categories.map((cat) => {
+          const count = products.filter((p) => p.category === cat.id).length;
+          const isActive = selectedCategory === cat.id;
+          return (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-5 py-2 rounded-xs text-xs sm:text-sm font-medium transition-all ${
+                isActive
+                  ? "bg-espresso text-ivory shadow-xs"
+                  : "bg-ivory text-brand-text border border-espresso/20 hover:border-cognac hover:text-cognac"
+              }`}
+            >
+              {cat.name} ({count})
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Products Grid */}
+      {filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-16 bg-espresso/5 rounded-xs border border-espresso/10">
+          <p className="text-brand-text/80 font-serif text-lg">
+            No products found in this category.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -52,7 +52,7 @@ export const products = [
     description:
       "For modern minimalist carry. Features four exterior card slots and a central pouch for folded notes or additional cards.",
     image:
-      "https://images.unsplash.com/photo-1606503153255-59d8b8b82176?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1676276549687-6f51f6e406b0?auto=format&fit=crop&w=800&q=80",
     colors: ["Cognac", "Espresso"],
     sizes: [],
     isFeatured: true,
@@ -81,7 +81,7 @@ export const products = [
     description:
       "Slightly wider 40mm profile ideal for casual wear and denim. Built to develop a rich patina over time.",
     image:
-      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1664286074176-5206ee5dc878?auto=format&fit=crop&w=800&q=80",
     colors: ["Cognac", "Espresso"],
     sizes: ["90cm", "95cm", "100cm", "105cm"],
     isFeatured: false,
