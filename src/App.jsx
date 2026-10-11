@@ -420,14 +420,37 @@ function ProductDetailsPage() {
             </div>
           )}
 
-          {/* Inquiry / Action */}
-          <div className="border-t border-espresso/10 pt-6">
-            <Link
-              to="/shop"
-              className="inline-flex items-center justify-center bg-espresso text-ivory text-sm font-medium px-8 py-3.5 rounded-xs hover:bg-cognac transition-colors"
-            >
-              &larr; Back to Collection
-            </Link>
+          {/* Customer Contact & Navigation Actions */}
+          <div className="border-t border-espresso/10 pt-6 space-y-4">
+            <div className="flex flex-col sm:flex-row gap-3">
+              {/* Primary Action: Order via Telegram */}
+              <a
+                href="https://t.me/KoraLeatherDemo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center bg-espresso text-ivory text-sm font-medium px-6 py-3.5 rounded-xs hover:bg-cognac transition-colors text-center shadow-xs"
+              >
+                Order via Telegram
+              </a>
+
+              {/* Secondary Action: Call Us */}
+              <a
+                href="tel:+251900000000"
+                className="inline-flex items-center justify-center bg-ivory text-espresso text-sm font-medium px-6 py-3.5 rounded-xs border border-espresso/20 hover:border-cognac hover:text-cognac transition-colors text-center"
+              >
+                Call Us
+              </a>
+            </div>
+
+            {/* Back to Collection Link */}
+            <div>
+              <Link
+                to="/shop"
+                className="inline-flex items-center text-sm font-medium text-brand-text/75 hover:text-cognac transition-colors"
+              >
+                &larr; Back to Collection
+              </Link>
+            </div>
           </div>
         </div>
       </div>
