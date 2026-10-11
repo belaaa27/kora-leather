@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import { products, categories } from "./data/products";
 
@@ -142,7 +142,10 @@ function ProductCard({ product }) {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="flex flex-col bg-ivory rounded-sm overflow-hidden border border-espresso/10 shadow-xs hover:shadow-md transition-shadow">
+    <Link
+      to={`/shop/${product.id}`}
+      className="group flex flex-col bg-ivory rounded-sm overflow-hidden border border-espresso/10 shadow-xs hover:shadow-md transition-all"
+    >
       {/* Product Image / Fallback Container */}
       <div className="relative aspect-4/5 w-full bg-espresso/5 overflow-hidden flex items-center justify-center">
         {imageError ? (
@@ -172,7 +175,7 @@ function ProductCard({ product }) {
             src={product.image}
             alt={product.name}
             onError={() => setImageError(true)}
-            className="w-full h-full object-cover object-center transform hover:scale-103 transition-transform duration-500"
+            className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500"
           />
         )}
       </div>
@@ -183,7 +186,7 @@ function ProductCard({ product }) {
           <span className="text-[11px] font-semibold uppercase tracking-widest text-cognac">
             {product.category}
           </span>
-          <h3 className="font-serif text-lg font-bold text-espresso mt-1 mb-1.5 leading-snug">
+          <h3 className="font-serif text-lg font-bold text-espresso mt-1 mb-1.5 leading-snug group-hover:text-cognac transition-colors">
             {product.name}
           </h3>
           <p className="text-xs sm:text-sm text-brand-text/75 line-clamp-2 leading-relaxed">
@@ -195,9 +198,12 @@ function ProductCard({ product }) {
           <span className="font-sans font-bold text-base text-espresso">
             {product.price.toLocaleString()} ETB
           </span>
+          <span className="text-xs font-semibold text-cognac group-hover:underline">
+            View Details &rarr;
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -275,6 +281,160 @@ function ShopPage() {
   );
 }
 
+function ProductDetailsPage() {
+  const { id } = useParams();
+  const product = products.find((p) => p.id === id);
+  const [imageError, setImageError] = useState(false);
+
+  if (!product) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="bg-espresso/5 border border-espresso/10 rounded-sm p-10 max-w-lg mx-auto">
+          <span className="text-xs font-semibold tracking-widest text-cognac uppercase">
+            Notice
+          </span>
+          <h1 className="font-serif text-3xl font-bold text-espresso mt-2 mb-3">
+            Product Not Found
+          </h1>
+          <p className="text-brand-text/80 text-sm sm:text-base mb-8">
+            The leather piece you are looking for does not exist or may have been removed.
+          </p>
+          <Link
+            to="/shop"
+            className="inline-flex items-center justify-center bg-espresso text-ivory font-medium px-6 py-3 rounded-xs hover:bg-cognac transition-colors"
+          >
+            &larr; Back to Shop
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+      {/* Back to Shop Navigation */}
+      <div className="mb-8">
+        <Link
+          to="/shop"
+          className="inline-flex items-center text-sm font-medium text-brand-text/75 hover:text-cognac transition-colors group"
+        >
+          <span className="mr-2 transform group-hover:-translate-x-1 transition-transform">&larr;</span>
+          Back to Shop
+        </Link>
+      </div>
+
+      {/* Main Product Container: 2-column on lg screens, 1-column on smaller */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        {/* Left Column: Image / Fallback */}
+        <div className="relative aspect-4/5 w-full bg-espresso/5 rounded-sm overflow-hidden border border-espresso/10 shadow-sm flex items-center justify-center">
+          {imageError ? (
+            <div className="flex flex-col items-center justify-center p-8 text-center text-espresso/60 h-full w-full bg-espresso/5 select-none">
+              <svg
+                className="w-12 h-12 mb-3 stroke-cognac"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"
+                />
+              </svg>
+              <span className="text-sm font-serif font-medium text-espresso/80">
+                {product.name}
+              </span>
+              <span className="text-xs tracking-wider uppercase text-cognac mt-1">
+                Image unavailable
+              </span>
+            </div>
+          ) : (
+            <img
+              src={product.image}
+              alt={product.name}
+              onError={() => setImageError(true)}
+              className="w-full h-full object-cover object-center"
+            />
+          )}
+        </div>
+
+        {/* Right Column: Details */}
+        <div className="flex flex-col space-y-6">
+          <div>
+            <span className="text-xs font-semibold tracking-widest text-cognac uppercase">
+              {product.category}
+            </span>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-espresso mt-2 mb-3 leading-tight">
+              {product.name}
+            </h1>
+            <p className="font-sans text-2xl font-bold text-espresso">
+              {product.price.toLocaleString()} ETB
+            </p>
+          </div>
+
+          <div className="border-t border-espresso/10 pt-6">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-espresso/70 mb-2">
+              Description
+            </h2>
+            <p className="text-brand-text/80 text-base leading-relaxed">
+              {product.description}
+            </p>
+          </div>
+
+          {/* Available Colors */}
+          {product.colors && product.colors.length > 0 && (
+            <div className="border-t border-espresso/10 pt-6">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-espresso/70 mb-3">
+                Available Colors
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {product.colors.map((color, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3.5 py-1.5 text-xs font-medium bg-espresso/5 border border-espresso/15 rounded-xs text-brand-text"
+                  >
+                    {color}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Available Sizes (when provided) */}
+          {product.sizes && product.sizes.length > 0 && (
+            <div className="border-t border-espresso/10 pt-6">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-espresso/70 mb-3">
+                Available Sizes
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {product.sizes.map((size, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3.5 py-1.5 text-xs font-medium bg-espresso/5 border border-espresso/15 rounded-xs text-brand-text"
+                  >
+                    {size}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Inquiry / Action */}
+          <div className="border-t border-espresso/10 pt-6">
+            <Link
+              to="/shop"
+              className="inline-flex items-center justify-center bg-espresso text-ivory text-sm font-medium px-8 py-3.5 rounded-xs hover:bg-cognac transition-colors"
+            >
+              &larr; Back to Collection
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function StoryPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
@@ -313,6 +473,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/shop" element={<ShopPage />} />
+            <Route path="/shop/:id" element={<ProductDetailsPage />} />
             <Route path="/our-story" element={<StoryPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
