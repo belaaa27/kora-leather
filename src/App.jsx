@@ -620,14 +620,340 @@ function StoryPage() {
 }
 
 function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    subject: "General Enquiry",
+    message: "",
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-      <h1 className="font-serif text-3xl font-bold text-espresso mb-2">
-        Contact Us
-      </h1>
-      <p className="text-brand-text/80">
-        Reach out directly via WhatsApp or phone.
-      </p>
+    <div className="flex flex-col min-h-screen bg-ivory">
+      {/* Contact Header */}
+      <div className="bg-espresso text-ivory py-16 lg:py-20 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">
+        <div className="max-w-3xl mx-auto relative z-10 space-y-4">
+          <span className="text-xs sm:text-sm font-semibold tracking-widest text-cognac uppercase">
+            WE'D LOVE TO HEAR FROM YOU
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ivory tracking-tight">
+            Let's start a conversation.
+          </h1>
+          <div className="w-12 h-0.5 bg-cognac/60 mx-auto my-4" />
+          <p className="text-ivory/80 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-sans">
+            Questions about a piece, sizing, or a special request? We're here to
+            help you find something you'll love.
+          </p>
+        </div>
+      </div>
+
+      {/* Main Content Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left Column: Direct Contact Channels & Info */}
+          <div className="lg:col-span-5 space-y-8">
+            <div>
+              <span className="text-xs font-semibold tracking-widest text-cognac uppercase">
+                DIRECT CHANNELS
+              </span>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-espresso mt-1 mb-4">
+                Connect Instantly
+              </h2>
+              <p className="text-brand-text/80 text-sm leading-relaxed">
+                For the fastest response regarding product availability and
+                custom orders, reach us directly through Telegram or phone.
+              </p>
+            </div>
+
+            {/* Quick Action Cards */}
+            <div className="space-y-4">
+              {/* Telegram Card */}
+              <a
+                href="https://t.me/KoraLeatherDemo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center p-5 bg-white rounded-sm border border-espresso/10 shadow-sm hover:border-cognac hover:shadow-md transition-all group"
+              >
+                <div className="w-12 h-12 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
+                  <svg
+                    className="w-6 h-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.52l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.16 5.76-5.2c.25-.22-.05-.34-.39-.12l-7.12 4.48-3.06-.96c-.67-.21-.68-.67.14-.99l11.97-4.61c.55-.2 1.04.14.86.85z" />
+                  </svg>
+                </div>
+                <div className="flex-1 text-left">
+                  <span className="text-xs font-semibold text-brand-text/60 uppercase tracking-wider">
+                    Telegram Channel
+                  </span>
+                  <p className="text-espresso font-bold text-base sm:text-lg">
+                    @KoraLeatherDemo
+                  </p>
+                  <span className="text-xs text-cognac font-medium">
+                    Click to chat on Telegram &rarr;
+                  </span>
+                </div>
+              </a>
+
+              {/* Phone Card */}
+              <a
+                href="tel:+251900000000"
+                className="flex items-center p-5 bg-white rounded-sm border border-espresso/10 shadow-sm hover:border-cognac hover:shadow-md transition-all group"
+              >
+                <div className="w-12 h-12 rounded-full bg-espresso/5 text-espresso flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                </div>
+                <div className="flex-1 text-left">
+                  <span className="text-xs font-semibold text-brand-text/60 uppercase tracking-wider">
+                    Direct Call
+                  </span>
+                  <p className="text-espresso font-bold text-base sm:text-lg">
+                    +251 900 000 000
+                  </p>
+                  <span className="text-xs text-cognac font-medium">
+                    Mon - Sat (9am - 7pm) &rarr;
+                  </span>
+                </div>
+              </a>
+            </div>
+
+            {/* Location & Hours Info Box */}
+            <div className="bg-white p-6 rounded-sm border border-espresso/10 shadow-sm space-y-4">
+              <div className="flex items-start space-x-3">
+                <svg
+                  className="w-5 h-5 text-cognac mt-1 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <div>
+                  <h3 className="font-serif font-bold text-espresso">
+                    Showroom Location
+                  </h3>
+                  <p className="text-sm text-brand-text/80 mt-0.5">
+                    Bole Road, Near Friendship Building
+                    <br />
+                    Addis Ababa, Ethiopia
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-t border-espresso/10 pt-4 flex items-start space-x-3">
+                <svg
+                  className="w-5 h-5 text-cognac mt-1 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <div>
+                  <h3 className="font-serif font-bold text-espresso">
+                    Opening Hours
+                  </h3>
+                  <p className="text-sm text-brand-text/80 mt-0.5">
+                    Monday – Saturday: 9:00 AM – 7:00 PM
+                    <br />
+                    Sunday: Closed
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Interactive Enquiry Form */}
+          <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-sm border border-espresso/10 shadow-sm">
+            <span className="text-xs font-semibold tracking-widest text-cognac uppercase">
+              SEND A MESSAGE
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-espresso mt-1 mb-6">
+              Drop Us an Enquiry
+            </h2>
+
+            {isSubmitted && (
+              <div className="mb-6 p-5 bg-amber-50/80 border border-amber-200/80 rounded-sm space-y-2">
+                <div className="flex items-center space-x-2 text-amber-900 font-semibold text-sm">
+                  <svg
+                    className="w-5 h-5 text-amber-600 shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>Interactive Demo Form Notice</span>
+                </div>
+                <p className="text-xs sm:text-sm text-amber-900/80 leading-relaxed">
+                  This website is a portfolio demo, so messages are not sent to
+                  a server. Your entered enquiry has been preserved below—feel
+                  free to copy it and connect with us directly via Telegram or
+                  Phone!
+                </p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-xs font-semibold text-espresso uppercase tracking-wider mb-2"
+                  >
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Abebe Kebede"
+                    className="w-full px-4 py-3 bg-ivory/50 border border-espresso/20 rounded-xs text-brand-text placeholder-brand-text/40 focus:outline-none focus:border-cognac focus:ring-1 focus:ring-cognac text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-xs font-semibold text-espresso uppercase tracking-wider mb-2"
+                  >
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+251 900 000 000"
+                    className="w-full px-4 py-3 bg-ivory/50 border border-espresso/20 rounded-xs text-brand-text placeholder-brand-text/40 focus:outline-none focus:border-cognac focus:ring-1 focus:ring-cognac text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-xs font-semibold text-espresso uppercase tracking-wider mb-2"
+                  >
+                    Email Address (Optional)
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="abebe@example.com"
+                    className="w-full px-4 py-3 bg-ivory/50 border border-espresso/20 rounded-xs text-brand-text placeholder-brand-text/40 focus:outline-none focus:border-cognac focus:ring-1 focus:ring-cognac text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="subject"
+                    className="block text-xs font-semibold text-espresso uppercase tracking-wider mb-2"
+                  >
+                    Subject
+                  </label>
+                  <select
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-ivory/50 border border-espresso/20 rounded-xs text-brand-text focus:outline-none focus:border-cognac focus:ring-1 focus:ring-cognac text-sm"
+                  >
+                    <option value="General Enquiry">General Enquiry</option>
+                    <option value="Telegram Order Support">
+                      Telegram Order Support
+                    </option>
+                    <option value="Custom Sizing / Fit">
+                      Custom Sizing / Fit
+                    </option>
+                    <option value="Showroom Visit">Showroom Visit</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-xs font-semibold text-espresso uppercase tracking-wider mb-2"
+                >
+                  Your Message *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell us what you're looking for or ask any questions..."
+                  className="w-full px-4 py-3 bg-ivory/50 border border-espresso/20 rounded-xs text-brand-text placeholder-brand-text/40 focus:outline-none focus:border-cognac focus:ring-1 focus:ring-cognac text-sm"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-espresso text-ivory font-medium py-3.5 px-6 rounded-xs hover:bg-cognac transition-colors focus:outline-none focus:ring-2 focus:ring-cognac shadow-sm text-sm uppercase tracking-wider cursor-pointer"
+              >
+                Send Enquiry
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
