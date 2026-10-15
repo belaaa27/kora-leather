@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import { products, categories } from "./data/products";
 
@@ -226,7 +232,8 @@ function ShopPage() {
           Shop Our Leatherwork
         </h1>
         <p className="text-brand-text/80 text-sm sm:text-base leading-relaxed">
-          Thoughtfully crafted essentials made with timeless Ethiopian craftsmanship and durable full-grain leather.
+          Thoughtfully crafted essentials made with timeless Ethiopian
+          craftsmanship and durable full-grain leather.
         </p>
       </div>
 
@@ -297,7 +304,8 @@ function ProductDetailsPage() {
             Product Not Found
           </h1>
           <p className="text-brand-text/80 text-sm sm:text-base mb-8">
-            The leather piece you are looking for does not exist or may have been removed.
+            The leather piece you are looking for does not exist or may have
+            been removed.
           </p>
           <Link
             to="/shop"
@@ -318,7 +326,9 @@ function ProductDetailsPage() {
           to="/shop"
           className="inline-flex items-center text-sm font-medium text-brand-text/75 hover:text-cognac transition-colors group"
         >
-          <span className="mr-2 transform group-hover:-translate-x-1 transition-transform">&larr;</span>
+          <span className="mr-2 transform group-hover:-translate-x-1 transition-transform">
+            &larr;
+          </span>
           Back to Shop
         </Link>
       </div>
@@ -459,14 +469,152 @@ function ProductDetailsPage() {
 }
 
 function StoryPage() {
+  const philosophyPillars = [
+    {
+      title: "Timeless Aesthetic",
+      description:
+        "We believe in enduring silhouettes that stand apart from transient trends. Each design focuses on clean lines and balanced proportions that remain relevant season after season.",
+    },
+    {
+      title: "Everyday Utility",
+      description:
+        "True luxury lives in daily use. Our pieces are created to integrate smoothly into work, travel, and leisure with functional organization and comfortable carry.",
+    },
+    {
+      title: "Considered Details",
+      description:
+        "From subtle edge stitching to tactile finishes and understated hardware, every element is chosen with care to bring quiet sophistication to everyday moments.",
+    },
+  ];
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-      <h1 className="font-serif text-3xl font-bold text-espresso mb-2">
-        Our Story
-      </h1>
-      <p className="text-brand-text/80">
-        Learn about our dedication to materials and craftsmanship.
-      </p>
+    <div className="flex flex-col">
+      {/* 1. Hero Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left: Introduction */}
+          <div className="flex flex-col items-start text-left space-y-6">
+            <span className="text-xs sm:text-sm font-semibold tracking-widest text-cognac uppercase">
+              CRAFTED FOR EVERYDAY ELEGANCE
+            </span>
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-espresso leading-tight">
+              Our Story
+            </h1>
+            <p className="text-base sm:text-lg text-brand-text/80 leading-relaxed max-w-xl">
+              Kora Leather was conceived with a clear intention: to bring
+              understated elegance, refined utility, and lasting beauty to the
+              essentials you carry every single day.
+            </p>
+          </div>
+
+          {/* Right: Hero Image */}
+          <div className="relative w-full aspect-4/3 sm:aspect-4/3 lg:aspect-square rounded-sm overflow-hidden bg-espresso/5 border border-espresso/10 shadow-sm">
+            <img
+              src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80"
+              alt="Crafted cognac leather handbag placed on a minimalist neutral surface"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Our Philosophy Section */}
+      <section className="bg-espresso/5 border-y border-espresso/10 py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs sm:text-sm font-semibold tracking-widest text-cognac uppercase">
+              OUR PHILOSOPHY
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-espresso mt-2 mb-4">
+              Designed for the Rhythm of Everyday Life
+            </h2>
+            <p className="text-brand-text/80 text-sm sm:text-base leading-relaxed">
+              We approach every piece through three foundational design
+              principles focused on purpose, longevity, and ease.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {philosophyPillars.map((pillar, idx) => (
+              <div
+                key={idx}
+                className="bg-ivory border border-espresso/10 rounded-sm p-8 shadow-xs flex flex-col justify-between"
+              >
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-widest text-cognac">
+                    0{idx + 1}
+                  </span>
+                  <h3 className="font-serif text-xl font-bold text-espresso mt-2 mb-3">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-sm text-brand-text/80 leading-relaxed">
+                    {pillar.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Craftsmanship & Design Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left: Image (stacks below on mobile) */}
+          <div className="relative w-full aspect-4/3 sm:aspect-4/3 lg:aspect-square rounded-sm overflow-hidden bg-espresso/5 border border-espresso/10 shadow-sm order-2 lg:order-1">
+            <img
+              src="https://images.unsplash.com/photo-1778882993124-5c26efbdfc39?auto=format&fit=crop&fm=jpg&q=80&w=1200"
+              alt="Close-up of brown leather texture and a stitched seam"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+
+          {/* Right: Text (stacks on top on mobile) */}
+          <div className="space-y-6 text-left order-1 lg:order-2">
+            <span className="text-xs sm:text-sm font-semibold tracking-widest text-cognac uppercase">
+              MATERIALS & FORM
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-espresso">
+              The Art of Thoughtful Design
+            </h2>
+            <p className="text-base sm:text-lg text-brand-text/80 leading-relaxed">
+              Leather has an enduring tactile presence unlike any other
+              material. We celebrate its rich character, natural warmth, and the
+              way thoughtful goods develop a personal patina over time.
+            </p>
+            <p className="text-sm sm:text-base text-brand-text/75 leading-relaxed">
+              Our creative process prioritizes harmony in proportion, durability
+              in everyday handling, and refined simplicity in structure—ensuring
+              each item feels as effortless on its first outing as it does years
+              later.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Closing CTA Section */}
+      <section className="bg-espresso text-ivory py-16 lg:py-20 text-center">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <span className="text-xs sm:text-sm font-semibold tracking-widest text-cognac uppercase">
+            EXPLORE OUR WORK
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-ivory">
+            Discover the Collection
+          </h2>
+          <p className="text-ivory/80 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Browse our curated selection of leather essentials designed to
+            accompany your personal journey with quiet elegance.
+          </p>
+          <div className="pt-2">
+            <Link
+              to="/shop"
+              className="inline-flex items-center justify-center bg-ivory text-espresso font-medium px-8 py-3.5 rounded-xs hover:bg-cognac hover:text-ivory transition-colors shadow-sm"
+            >
+              Explore Shop Collection
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
